@@ -1,7 +1,7 @@
 import { BadRequestException, Controller, Get, Param, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { CountsService } from "../services/counts.service";
 import { CountFilterQueryDto, WinnerRecordFilterDto } from "../dtos/recordFilterDto";
-import { EventsService } from "../services/events.service";
+import { EventsService } from '../../../providers/events.service';
 
 @Controller('count')
 export class CountController {

@@ -9,7 +9,9 @@ import { CountController } from './modules/records/controllers/counts.controller
 import { NewsItem, NewsItemSchema } from './schemas/news.schema';
 import { NewsController } from './modules/news/news.controller';
 import { NewsService } from './modules/news/news.services';
-import { EventsService } from './modules/records/services/events.service';
+import { EventsService } from './providers/events.service';
+import { BannerController } from './modules/banner/banner.controller';
+
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { EventsService } from './modules/records/services/events.service';
     MongooseModule.forRoot(process.env.MONGO_CONNECTION_STRING),
     MongooseModule.forFeature([{ name: WinnerRecord.name, schema: WinnerRecordSchema }, { name: NewsItem.name, schema: NewsItemSchema}])
   ],
-  controllers: [RecordsController, CountController, NewsController],
+  controllers: [RecordsController, CountController, NewsController, BannerController],
   providers: [RecordsService, CountsService, NewsService, EventsService],
 })
 export class AppModule {}

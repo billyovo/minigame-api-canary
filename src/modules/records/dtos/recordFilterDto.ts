@@ -1,8 +1,6 @@
 import { ServerOption } from "src/shared/enums/ServerOption";
 import { IsEnum, IsMongoId, IsNumber, IsOptional, IsString, Matches, Max, Min, isNumber, } from "class-validator";
 import { Transform } from "class-transformer";
-import { EventsService } from "../services/events.service";
-
 export class WinnerRecordFilterDto {
   @Transform(({ value }) => ServerOption[value.toUpperCase()])
   @IsEnum(ServerOption)
