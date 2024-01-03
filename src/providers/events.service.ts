@@ -2,9 +2,9 @@ import { EventScheduleItem } from "src/shared/types/event";
 import * as events from "../shared/assets/events.json";
 import { generateSchedule } from "./utils/utils";
 import { Cron } from '@nestjs/schedule';
-import {createCanvas, loadImage, registerFont} from 'canvas';
+import {createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { join } from "path";
-import { writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 type Event = {
     title: string;
@@ -49,25 +49,27 @@ export class EventsService {
     }
 
     async makeBanner(eventName : string, eventTime : string){
-        const path = join(process.cwd(), process.env.NODE_ENV === "production" ? "./dist/public" : "./src/public")
-        console.log(join(process.cwd(), `./src/shared/assets/font.ttf`));
-        registerFont("./src/shared/assets/font.ttf", {family: "gothicx"})
+        const outputPath = join(process.cwd(), process.env.NODE_ENV === "production" ? "./dist/public" : "./src/public")
+        //if output path doesn't exist, create it
+        if(!existsSync(outputPath)) mkdirSync(outputPath);
+        
+        GlobalFonts.registerFromPath("./src/shared/assets/font.ttf", "gothicx");
         const canvas = createCanvas(600,200);
         const ctx = canvas.getContext("2d");
         const base = await loadImage("./src/shared/assets/banner.png");
         ctx.drawImage(base, 0,0);
     
-        ctx.font = '65px "gothicx"';
+        ctx.font = '65px gothicx';
         ctx.fillStyle = "white"
         ctx.textAlign = "center"
         ctx.fillText(eventName, base.width/2, (base.height/2)+15);
         
-        ctx.font = '20px "gothicx"';
+        ctx.font = '20px gothicx';
         ctx.textAlign = "left";
         ctx.fillText(eventTime, base.width-150, base.height-22)
         const buffer = canvas.toBuffer("image/png");
       
-        writeFileSync(`${path}/banner-today.png`, buffer);
-        console.log(`Banner updated ${eventTime + " " + eventName}`)
+        writeFileSync(`${outputPath}/banner-today.png`, buffer);
+        console.log(`Banner updated ${eventTime} ${eventName}`)
     }
 }
