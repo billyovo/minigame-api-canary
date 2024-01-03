@@ -20,7 +20,7 @@ export class EventsService {
     constructor() {
         this.events = new Map<string, Event>();
         this.events.set("all", {
-            title: "All",
+            title: "all",
             id: "all",
             rrule: "",
             emote: "",
