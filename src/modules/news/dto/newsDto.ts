@@ -27,7 +27,6 @@ export class NewsListQueryDto {
 }
 
 export class NewsItemQueryDto {
-    @IsMongoId()
     @Transform(({ value }) => new Types.ObjectId(value))
     readonly id: ObjectId;
 }
