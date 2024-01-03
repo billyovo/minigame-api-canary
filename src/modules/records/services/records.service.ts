@@ -21,7 +21,7 @@ export class RecordsService {
         if(before) query['_id'] = { $lt: before };
         if(dateBefore) query['date'] = { $lt: dateBefore };
 
-        const records = await this.winnerRecordModel.find(query).limit(limit);
+        const records = await this.winnerRecordModel.find(query).sort({date: -1}).limit(limit);
         const total = await this.winnerRecordModel.countDocuments(query);
 
         return { total, rows: records };
