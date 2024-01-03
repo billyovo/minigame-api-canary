@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RecordsController } from './modules/records/controllers/records.controller';
 import { ConfigModule } from '@nestjs/config';
@@ -11,6 +11,7 @@ import { NewsController } from './modules/news/news.controller';
 import { NewsService } from './modules/news/news.services';
 import { EventsService } from './providers/events.service';
 import { BannerController } from './modules/banner/banner.controller';
+import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
 
 
 @Module({
@@ -22,4 +23,8 @@ import { BannerController } from './modules/banner/banner.controller';
   controllers: [RecordsController, CountController, NewsController, BannerController],
   providers: [RecordsService, CountsService, NewsService, EventsService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer : MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
