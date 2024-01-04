@@ -13,6 +13,7 @@ import { EventsService } from './providers/events.service';
 import { BannerController } from './modules/banner/banner.controller';
 import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
 import { EventsController } from './modules/events/events.controller';
+import { RootController } from './app.controller';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EventsController } from './modules/events/events.controller';
     NewsController,
     BannerController,
     EventsController,
+    RootController,
   ],
   providers: [RecordsService, CountsService, NewsService, EventsService],
 })
