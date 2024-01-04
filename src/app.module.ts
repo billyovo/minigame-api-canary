@@ -12,19 +12,28 @@ import { NewsService } from './modules/news/news.services';
 import { EventsService } from './providers/events.service';
 import { BannerController } from './modules/banner/banner.controller';
 import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
-
+import { EventsController } from './modules/events/events.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), 
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_CONNECTION_STRING),
-    MongooseModule.forFeature([{ name: WinnerRecord.name, schema: WinnerRecordSchema }, { name: NewsItem.name, schema: NewsItemSchema}])
+    MongooseModule.forFeature([
+      { name: WinnerRecord.name, schema: WinnerRecordSchema },
+      { name: NewsItem.name, schema: NewsItemSchema },
+    ]),
   ],
-  controllers: [RecordsController, CountController, NewsController, BannerController],
+  controllers: [
+    RecordsController,
+    CountController,
+    NewsController,
+    BannerController,
+    EventsController,
+  ],
   providers: [RecordsService, CountsService, NewsService, EventsService],
 })
 export class AppModule implements NestModule {
-  configure(consumer : MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }
