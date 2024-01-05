@@ -13,8 +13,7 @@ import { EventsService } from './providers/events.service';
 import { BannerController } from './modules/banner/banner.controller';
 import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
 import { EventsController } from './modules/events/events.controller';
-import { RootController } from './app.controller';
-
+import { RootController } from './modules/root/app.controller';
 @Module({
   imports: [
     ConfigModule.forRoot(),
