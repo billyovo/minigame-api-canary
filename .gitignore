@@ -37,4 +37,4 @@ lerna-debug.log*
 
 .env
 
-/src/public
+/src/public/banner-today.png
