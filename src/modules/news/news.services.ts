@@ -9,15 +9,17 @@ export class NewsService {
   constructor(@InjectModel('NewsItem') private newsModel: Model<NewsItem>) {}
 
   async getNewsList(newsListQueryDto: NewsListQueryDto) {
-    const { limit, before } = newsListQueryDto;
+    const { limit, page } = newsListQueryDto;
 
     const query = {};
-    if (before) query['_id'] = { $lt: before };
+
+    const total = await this.newsModel.countDocuments(query);
 
     const news = await this.newsModel
-      .find(query, { _id: 1, title: 1, publish_date: 1 })
-      .limit(limit);
-    const total = await this.newsModel.countDocuments(query);
+      .find(query)
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
 
     return { total, rows: news };
   }

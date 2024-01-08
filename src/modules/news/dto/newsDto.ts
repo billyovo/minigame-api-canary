@@ -70,15 +70,13 @@ export class NewsListQueryDto {
   readonly limit?: number = 15;
 
   @IsOptional()
-  @IsMongoId()
   @ApiProperty({
-    example: '641e95a953143be5baf39888',
-    description:
-      'ObjectId of the record to return items before this record. Used in pagination',
+    example: '3',
+    description: 'page number',
     required: false,
-    type: 'string',
+    type: 'number',
   })
-  readonly before?: string;
+  readonly page?: number = 1;
 }
 
 export class NewsItemQueryDto {
