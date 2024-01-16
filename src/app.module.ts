@@ -28,6 +28,7 @@ import { SentryModule } from '@ntegral/nestjs-sentry';
       dsn: process.env.SENTRY_DSN,
       debug: true,
       environment: process.env.NODE_ENV === 'production' ? 'production' : 'dev',
+      logLevels: ['error', 'warn'],
     }),
   ],
   controllers: [
