@@ -28,6 +28,8 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.0",
     "@nestjs/swagger": "^7.1.17",
+    "@ntegral/nestjs-sentry": "^4.0.1",
+    "@sentry/node": "^7.93.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "husky": "^8.0.3",

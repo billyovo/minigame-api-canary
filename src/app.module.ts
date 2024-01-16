@@ -14,6 +14,8 @@ import { BannerController } from './modules/banner/banner.controller';
 import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
 import { EventsController } from './modules/events/events.controller';
 import { RootController } from './modules/root/app.controller';
+import { SentryModule } from '@ntegral/nestjs-sentry';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -22,6 +24,11 @@ import { RootController } from './modules/root/app.controller';
       { name: WinnerRecord.name, schema: WinnerRecordSchema },
       { name: NewsItem.name, schema: NewsItemSchema },
     ]),
+    SentryModule.forRoot({
+      dsn: process.env.SENTRY_DSN,
+      debug: true,
+      environment: process.env.NODE_ENV === 'production' ? 'production' : 'dev',
+    }),
   ],
   controllers: [
     RecordsController,

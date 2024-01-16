@@ -31,7 +31,8 @@ export class NewsController {
       exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   )
-  getCount(@Query() query: NewsListQueryDto) {
+  getNewsList(@Query() query: NewsListQueryDto) {
+    throw new Error('test');
     return this.newsService.getNewsList({ ...query });
   }
 
