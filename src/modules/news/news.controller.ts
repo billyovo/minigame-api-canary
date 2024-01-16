@@ -32,7 +32,6 @@ export class NewsController {
     }),
   )
   getNewsList(@Query() query: NewsListQueryDto) {
-    throw new Error('test');
     return this.newsService.getNewsList({ ...query });
   }
 
