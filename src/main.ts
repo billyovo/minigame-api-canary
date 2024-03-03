@@ -21,5 +21,6 @@ async function bootstrap() {
   app.useStaticAssets(join(process.cwd(), '/src/public'));
 
   await app.listen(process.env.PORT);
+  app.init();
 }
 bootstrap();
